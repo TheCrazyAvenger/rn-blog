@@ -40,14 +40,15 @@ const iconCreateHandler = (title, iconName, pressFunc) => {
   );
 };
 
-const goToPost = ({ route, navigation }) => {
-  const { date, booked } = route.params;
+const goToPost = ({ route }) => {
+  const { date, booked, toggleHandler } = route.params;
   const iconName = booked ? 'ios-star' : 'ios-star-outline';
+
+  console.log(route);
 
   return {
     title: `Пост от ${new Date(date).toLocaleDateString()}`,
-    headerRight: () =>
-      iconCreateHandler('Star', iconName, () => console.log(1)),
+    headerRight: () => iconCreateHandler('Star', iconName, toggleHandler),
   };
 };
 
@@ -71,42 +72,6 @@ const PostNavigation = ({ navigation }) => {
         options={goToPost}
       />
     </PostNavigator.Navigator>
-  );
-};
-
-const CreateNavigation = ({ navigation }) => {
-  return (
-    <CreateNavigator.Navigator screenOptions={defaultScreenOptions}>
-      <CreateNavigator.Screen
-        name='CreatePage'
-        options={{
-          title: 'Новый пост',
-          headerLeft: () =>
-            iconCreateHandler('Menu', 'ios-menu', () =>
-              navigation.openDrawer()
-            ),
-        }}
-        component={CreateScreen}
-      />
-    </CreateNavigator.Navigator>
-  );
-};
-
-const AboutNavigation = ({ navigation }) => {
-  return (
-    <AboutNavigator.Navigator screenOptions={defaultScreenOptions}>
-      <AboutNavigator.Screen
-        name='AboutPage'
-        options={{
-          title: 'О приложении',
-          headerLeft: () =>
-            iconCreateHandler('Menu', 'ios-menu', () =>
-              navigation.openDrawer()
-            ),
-        }}
-        component={AboutScreen}
-      />
-    </AboutNavigator.Navigator>
   );
 };
 
@@ -168,6 +133,42 @@ const BottomTab = () =>
   Platform.OS === 'android'
     ? bottomTabsConfig(AndroidTab)
     : bottomTabsConfig(Tab);
+
+const CreateNavigation = ({ navigation }) => {
+  return (
+    <CreateNavigator.Navigator screenOptions={defaultScreenOptions}>
+      <CreateNavigator.Screen
+        name='CreatePage'
+        options={{
+          title: 'Новый пост',
+          headerLeft: () =>
+            iconCreateHandler('Menu', 'ios-menu', () =>
+              navigation.openDrawer()
+            ),
+        }}
+        component={CreateScreen}
+      />
+    </CreateNavigator.Navigator>
+  );
+};
+
+const AboutNavigation = ({ navigation }) => {
+  return (
+    <AboutNavigator.Navigator screenOptions={defaultScreenOptions}>
+      <AboutNavigator.Screen
+        name='AboutPage'
+        options={{
+          title: 'О приложении',
+          headerLeft: () =>
+            iconCreateHandler('Menu', 'ios-menu', () =>
+              navigation.openDrawer()
+            ),
+        }}
+        component={AboutScreen}
+      />
+    </AboutNavigator.Navigator>
+  );
+};
 
 const DrawerNavigator = () => {
   return (

@@ -19,12 +19,22 @@ export const PostScreen = ({ route, navigation }) => {
   const post = useSelector((state) =>
     state.post.allPosts.find((post) => post.id === postId)
   );
+  const booked = useSelector((state) =>
+    state.post.bookedPosts.some((post) => post.id === postId)
+  );
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    navigation.setParams({ booked });
+  }, [booked]);
+
   const toggleHandler = useCallback(() => {
-    console.log(postId);
     dispatch(toggleBooked(post));
   }, [dispatch, post]);
+
+  useEffect(() => {
+    navigation.setParams({ toggleHandler });
+  }, [toggleHandler]);
 
   const removeHandler = () => {
     Alert.alert(

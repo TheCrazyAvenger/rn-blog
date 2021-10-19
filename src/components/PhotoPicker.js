@@ -8,8 +8,7 @@ export const PhotoPicker = ({ onPick }) => {
   useEffect(() => {
     (async () => {
       if (Platform.OS !== 'web') {
-        const { status } =
-          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        const { status } = await ImagePicker.getCameraPermissionsAsync();
         if (status !== 'granted') {
           Alert.alert('Ошибка', 'Вы не предоставили права на создание фото');
         }
@@ -18,10 +17,10 @@ export const PhotoPicker = ({ onPick }) => {
   }, []);
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [16, 9],
       quality: 1,
     });
 

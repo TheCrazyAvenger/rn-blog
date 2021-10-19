@@ -18,8 +18,6 @@ import { THEME } from '../theme';
 export const CreateScreen = ({ navigation }) => {
   const [text, setText] = useState('');
   const imgRef = useRef();
-  const image =
-    'https://static.coindesk.com/wp-content/uploads/2019/01/shutterstock_1012724596-860x430.jpg';
 
   const dispatch = useDispatch();
 
